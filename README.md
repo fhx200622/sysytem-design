@@ -95,7 +95,15 @@ Networks and parts of networks go down frequently and unexpectedly.Given that ne
 - CP - Consistency/Partition Tolerance - Wait for a response from the partitioned node which could result in a timeout error. The system can also choose to return an error, depending on the scenario you desire. Choose Consistency over Availability when your business requirements dictate atomic reads and writes.
 - AP - Availability/Partition Tolerance - Return the most recent version of the data you have, which could be stale. This system state will also accept writes that can be processed later when the partition is resolved. Choose Availability over Consistency when your business requirements allow for some flexibility around when the data in the system synchronizes. Availability is also a compelling option when the system needs to continue to function in spite of external errors   
 ## Consistency
-
+### Weak consistency
+After a write, reads may or may not see it. A best effort approach is taken.
+This approach is seen in systems such as memcached. Weak consistency works well in real time use cases such as VoIP, video chat, and realtime multiplayer games. For example, if you are on a phone call and lose reception for a few seconds, when you regain connection you do not hear what was spoken during connection loss.
+### Eventual consistency
+After a write, reads will eventually see it (typically within milliseconds). Data is replicated asynchronously.
+This approach is seen in systems such as DNS and email. Eventual consistency works well in highly available systems.
+### Strong consistency
+After a write, reads will see it. Data is replicated synchronously.
+This approach is seen in file systems and RDBMSes. Strong consistency works well in systems that need transactions.
 
 
 
